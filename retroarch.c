@@ -548,6 +548,9 @@ static const video_driver_t *video_drivers[] = {
 #ifdef HAVE_NETWORK_VIDEO
    &video_network,
 #endif
+#ifdef HAVE_FBDEV
+   &video_fbdev,
+#endif
    &video_null,
    NULL,
 };

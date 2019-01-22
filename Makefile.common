@@ -2037,6 +2037,15 @@ ifneq ($(findstring DOS,$(OS)),)
           frontend/drivers/platform_dos.o
 endif
 
+ifeq ($(HAVE_FBDEV), 1)
+   OBJ += gfx/drivers/fbdev_gfx.o gfx/drivers_font/fbdev_font.o
+   LDFLAGS += -rdynamic
+
+   ifeq ($(HAVE_MENU_COMMON), 1)
+      OBJ += gfx/drivers_display/gfx_display_fbdev.o
+   endif
+endif
+
 ifeq ($(HAVE_STATIC_VIDEO_FILTERS), 1)
    OBJ += gfx/video_filters/2xsai.o \
           gfx/video_filters/super2xsai.o \

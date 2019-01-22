@@ -85,6 +85,7 @@ HAVE_PLAIN_DRM=yes         # Plain DRM video support
 HAVE_EXYNOS=no             # Exynos video support
 HAVE_DISPMANX=no           # Dispmanx video support
 HAVE_SUNXI=no              # Sunxi video support
+HAVE_FBDEV=yes             # Framebuffer device video support
 HAVE_WAYLAND=auto          # Wayland support
 C89_WAYLAND=no
 CXX_WAYLAND=no

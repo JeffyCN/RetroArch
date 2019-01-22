@@ -619,6 +619,10 @@ static bool gfx_display_check_compatibility(
          if (string_is_equal(video_driver, "switch"))
             return true;
          break;
+      case GFX_VIDEO_DRIVER_FBDEV:
+         if (string_is_equal(video_driver, "fbdev"))
+            return true;
+         break;
    }
 
    return false;

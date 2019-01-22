@@ -164,6 +164,7 @@ enum video_driver_enum
    VIDEO_GDI,
    VIDEO_VGA,
    VIDEO_FPGA,
+   VIDEO_FBDEV,
    VIDEO_NULL
 };
 
@@ -367,6 +368,8 @@ static enum video_driver_enum VIDEO_DEFAULT_DRIVER = VIDEO_VGA;
 static enum video_driver_enum VIDEO_DEFAULT_DRIVER = VIDEO_FPGA;
 #elif defined(HAVE_DYLIB) && !defined(ANDROID)
 static enum video_driver_enum VIDEO_DEFAULT_DRIVER = VIDEO_EXT;
+#elif defined(HAVE_FBDEV)
+static enum video_driver_enum VIDEO_DEFAULT_DRIVER = VIDEO_FBDEV;
 #else
 static enum video_driver_enum VIDEO_DEFAULT_DRIVER = VIDEO_NULL;
 #endif
@@ -835,6 +838,8 @@ const char *config_get_default_video(void)
          return "vga";
       case VIDEO_FPGA:
          return "fpga";
+      case VIDEO_FBDEV:
+         return "fbdev";
       case VIDEO_NULL:
          break;
    }

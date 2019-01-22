@@ -676,6 +676,37 @@ static bool wiiu_font_init_first(
 }
 #endif
 
+#ifdef HAVE_FBDEV
+static const font_renderer_t *fbdev_font_backends[] = {
+   &fbdev_font,
+   NULL,
+};
+
+static bool fbdev_font_init_first(
+      const void **font_driver, void **font_handle,
+      void *video_data, const char *font_path,
+      float font_size, bool is_threaded)
+{
+   unsigned i;
+
+   for (i = 0; fbdev_font_backends[i]; i++)
+   {
+      void *data = fbdev_font_backends[i]->init(
+            video_data, font_path, font_size,
+            is_threaded);
+
+      if (!data)
+         continue;
+
+      *font_driver = fbdev_font_backends[i];
+      *font_handle = data;
+      return true;
+   }
+
+   return false;
+}
+#endif
+
 static bool font_init_first(
       const void **font_driver, void **font_handle,
       void *video_data, const char *font_path, float font_size,
@@ -781,6 +812,11 @@ static bool font_init_first(
 #ifdef DJGPP
       case FONT_DRIVER_RENDER_VGA:
          return vga_font_init_first(font_driver, font_handle,
+               video_data, font_path, font_size, is_threaded);
+#endif
+#ifdef HAVE_FBDEV
+      case FONT_DRIVER_RENDER_FBDEV:
+         return fbdev_font_init_first(font_driver, font_handle,
                video_data, font_path, font_size, is_threaded);
 #endif
       case FONT_DRIVER_RENDER_DONT_CARE:
