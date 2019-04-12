@@ -1175,9 +1175,12 @@ ifeq ($(HAVE_NETWORK_VIDEO), 1)
 endif
 
 ifeq ($(HAVE_PLAIN_DRM), 1)
+ifeq ($(HAVE_DRM),1)
+   HAVE_AND_WILL_USE_DRM = 1
    OBJ += gfx/drivers/drm_gfx.o
-   INCLUDE_DIRS += -I/usr/include/libdrm
-   LIBS += -ldrm
+   DEFINES += $(DRM_CFLAGS)
+   LIBS += $(DRM_LIBS)
+endif
 endif
 
 ifeq ($(HAVE_VITAGL), 1)

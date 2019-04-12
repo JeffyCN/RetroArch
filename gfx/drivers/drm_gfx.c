@@ -329,7 +329,7 @@ static void drm_surface_update(void *data, const void *frame,
             (uint8_t*)frame + src_offset,
             surface->pitch);
       src_offset += surface->total_pitch;
-      dst_offset += surface->pitch;
+      dst_offset += surface->pages[surface->flip_page].buf.stride;
    }
 
    /* Page flipping */
